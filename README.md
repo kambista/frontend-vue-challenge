@@ -4,7 +4,7 @@
 
 ## Caso
 
-Se necesita desarrollar una aplicación de intercambio de divisas, siguiendo el diseño proporcionado en Figma.
+Se necesita desarrollar una aplicación de intercambio de divisas, siguiendo el diseño proporcionado en este [Figma](https://www.figma.com/design/CkUU2J5WZNACGQVy3vFr45/Untitled?node-id=0-1&p=f&t=3p9NiX4qWDMnL8g9-0).
 
 ## Tecnologías
 
@@ -14,22 +14,15 @@ Para el desarrollo de la solución se debe utilizar las siguientes tecnologías:
 - Estilos personalizados con [tailwindcss](https://tailwindcss.com/)
 - Manejo de estado con Pinia
 
-## Objetivos de Evaluación
+## 📝 Requerimientos funcionales
 
-- **Calidad de código**: Arquitectura limpia, modularización y buenas prácticas.
-- **Fidelidad al diseño**: Fidelidad y creatividad en la resolución de los requerimientos de diseño
-- **Performance**: Componentes optimizados y manejo eficiente de estado.
-- **Mantenibilidad**: Prioriza legibilidad y escalabilidad, con estructura de archivos clara y consistente.
-
-## Requerimientos funcionales
-
-### Módulo de Autenticación
+### I. Módulo de Autenticación
 
 **Login**: Formulario para el inicio de sesión de los usuarios con validación de campos en tiempo real.
 
-### Módulo de Onboarding
+### II: Módulo de Onboarding
 
-**Datos personales**: Formulario para completar los datos personales del usuario con
+1: **Datos personales**: Formulario para completar los datos personales del usuario con
 validación de campos en tiempo real.
 
 Manejo de errores específicos (ej: DNI duplicado)
@@ -46,19 +39,17 @@ Manejo de errores específicos (ej: DNI duplicado)
 }
 ```
 
-### Registro exitoso
+2: **Registro exitoso**: Vista para indicar que todos los datos se han registrado exitosamente.
 
-Vista para indicar que todos los datos se han registrado exitosamente.
+### II: Módulo de Transacciones
 
-### Módulo de Transacciones
-
-**Pantalla principal**: Es la vista inicial donde se muestra la calculadora de cotización del cambio y se inicia la operación con:
+1: **Pantalla principal**: Es la vista inicial donde se muestra la calculadora de cotización del cambio y se inicia la operación con:
 
 - Consumo de API para obtener datos de tipo de cambio.
 - Consumo de API para calcular una operación.
 - Cálculos en tiempo real.
 
-**Agregar información adicional del cambio**:
+2: **Agregar información adicional del cambio**:
 
 - En esta vista por una parte se deben seleccionar los bancos que se usarán para el intercambio de divisas y el origen de fondos de acuerdo a mock anexo.
 - Por otra parte se debe agregar la cuenta de destino con:
@@ -69,15 +60,15 @@ Vista para indicar que todos los datos se han registrado exitosamente.
 
 > \*Ver listado de bancos a agregar en mock anexo.
 
-**Datos de transferencia**: Vista con los datos de la cuenta bancaria de Kambista.
+3: **Datos de transferencia**: Vista con los datos de la cuenta bancaria de Kambista.
 
-**Adjuntar voucher de depósito**: Vista de formulario para adjuntar voucher bancario del depósito efectuado.
+4: **Adjuntar voucher de depósito**: Vista de formulario para adjuntar voucher bancario del depósito efectuado.
 
-**Transacción creada**: Vista de resumen de la operación creada.
+5: **Transacción creada**: Vista de resumen de la operación creada.
 
 ## Información adicional
 
-**APIs a utilizar**
+-**APIs a utilizar**
 
 1. Endpoint para obtener el tipo de cambio:
 
@@ -91,7 +82,7 @@ https://api.kambista.com/v1/exchange/kambista/current
 https://api.kambista.com/v1/exchange/calculates?originCurrency=PEN&destinationCurrency=USD&amount={cantidad}&active=S
 ```
 
-**Mocks de data adicional**
+-**Mocks de data adicional**
 Se incluyen dos archivos JSON con datos de prueba:
 
 1. **`bankAccounts.json`**
@@ -107,7 +98,7 @@ Se incluyen dos archivos JSON con datos de prueba:
 
 > \*Los archivos se encuentran en `/mocks`.
 
-**Estrategias a implementar para manejo de errores**
+-**Estrategias a implementar para manejo de errores**
 
 1. **Errores generales de los Formularios**:
    - Validación en tiempo real para:
@@ -146,9 +137,10 @@ interface APIError {
 
 ## 🏆 Criterios de Evaluación
 
-- Calidad de código
-- Buenas prácticas de programación
-- Manejo adecuado de errores
+- **Calidad de código**: Arquitectura limpia, modularización y buenas prácticas.
+- **Fidelidad al diseño**: Fidelidad y creatividad en la resolución de los requerimientos de diseño
+- **Performance**: Componentes optimizados y manejo eficiente de estado.
+- **Mantenibilidad**: Prioriza legibilidad y escalabilidad, con estructura de archivos clara y consistente.
 
 **Bonus (Opcional)**
 
