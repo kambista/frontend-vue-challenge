@@ -29,7 +29,7 @@ const onSubmit = handleSubmit((values) => {
 
 <template>
 
-    <div class="w-full max-w-md">
+    <div class="w-full max-w-sm mx-auto px-5 lg:px-0">
         <h2 class="text-2xl font-medium text-gray-600 text-center mb-8 lg:text-3xl lg:font-bold lg:text-kambista-text lg:text-left"
         data-aos="fade-left"
         >
@@ -99,6 +99,7 @@ const onSubmit = handleSubmit((values) => {
         <p class="text-center text-sm text-gray-400 mt-8"
         data-aos="fade-left"
         data-aos-delay="100"
+        data-aos-offset="0"
         >
           ¿No tienes cuenta? 
           <NuxtLink to="/onboarding" class="text-gray-500 hover:text-kambista-cyan transition-colors underline decoration-gray-300 underline-offset-4">

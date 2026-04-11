@@ -2,6 +2,7 @@
   <div class="z-10 w-full max-w-lg">
         <div class="mb-20 lg:mb-16 flex justify-center"
         data-aos="fade-right"
+        data-aos-offset="0"
         >
           <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 335.9 93.79" xml:space="preserve" class="h-18 md:h-22 w-auto">
             <g>
