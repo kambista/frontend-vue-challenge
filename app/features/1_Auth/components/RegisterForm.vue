@@ -4,6 +4,7 @@ import { useForm } from 'vee-validate'
 import { registerSchema } from '~/features/1_Auth/utils/registerSchema'
 import BaseInput from '~/features/shared/components/ui/BaseInput.vue'
 import BaseCheckbox from '~/features/shared/components/ui/BaseCheckbox.vue'
+import { useRouter } from 'vue-router'
 
 const { errors, defineField, handleSubmit, meta } = useForm({
   validationSchema: registerSchema,
@@ -24,8 +25,18 @@ const [acceptPromotions] = defineField('acceptPromotions')
 const isPasswordVisible = ref(false)
 const isConfirmPasswordVisible = ref(false)
 
-const onSubmit = handleSubmit((values) => {
-  console.log('Datos listos para registrar:', values)
+const router = useRouter()
+const isLoadingLocal = ref(false)
+
+
+const onSubmit = handleSubmit(async (values) => {
+  isLoadingLocal.value = true
+  
+  await new Promise(resolve => setTimeout(resolve, 1000))
+  
+  isLoadingLocal.value = false
+  console.log('Credenciales iniciales válidas:', values.email)
+  router.push('/onboarding/datos')
 })
 </script>
 
@@ -73,12 +84,19 @@ const onSubmit = handleSubmit((values) => {
 
       <button 
         type="submit"
-        :disabled="!meta.valid"
-        class="w-full font-semibold py-3.5 rounded-lg transition-all mt-6"
+        :disabled="!meta.valid || isLoadingLocal"
+        class="w-full font-semibold py-3.5 rounded-lg transition-all mt-6 flex justify-center items-center gap-2"
         data-aos-offset="0"
-        :class="[!meta.valid ? 'bg-[#c3eadd] text-gray-500 cursor-not-allowed' : 'bg-[#90eed8] hover:bg-kambista-cyan text-kambista-text']"
+        :class="[!meta.valid || isLoadingLocal ? 'bg-[#c3eadd] text-gray-500 cursor-not-allowed' : 'bg-[#90eed8] hover:bg-[#00e3c2] text-[#182233]']"
       >
-        REGISTRARME
+        <span v-if="isLoadingLocal" class="flex items-center gap-2">
+          <svg class="animate-spin h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          Registrando...
+        </span>
+        <span v-else>REGISTRARME</span>
       </button>
 
     </form>

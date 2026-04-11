@@ -16,6 +16,7 @@
     "@vee-validate/zod": "^4.15.1",
     "aos": "^2.3.4",
     "nuxt": "^4.4.2",
+    "pinia": "^3.0.4",
     "tailwindcss": "^4.2.2",
     "v-calendar": "^3.1.2",
     "vee-validate": "^4.15.1",

@@ -1,10 +1,15 @@
 <script setup lang="ts">
 import { useForm } from 'vee-validate'
 import { personalDataSchema } from '~/features/2_Onboarding/utils/personalDataSchema'
+import { useAuthStore } from '~/store/auth.store'
+import { storeToRefs } from 'pinia'
 import BaseInput from '~/features/shared/components/ui/BaseInput.vue'
 import BaseSelect from '~/features/shared/components/ui/BaseSelect.vue'
 import BaseCheckbox from '~/features/shared/components/ui/BaseCheckbox.vue'
 import BaseDatePicker from '~/features/shared/components/ui/BaseDatePicker.vue'
+
+const authStore = useAuthStore()
+const { isLoading } = storeToRefs(authStore)
 
 const { errors, defineField, handleSubmit, meta, setFieldError } = useForm({
   validationSchema: personalDataSchema,
@@ -29,12 +34,17 @@ const documentOptions = [
 ]
 
 const onSubmit = handleSubmit(async (values) => {
-  // Simulador de DNI duplicado
-  if (values.documentNumber === '12345678') {
-    setFieldError('documentNumber', 'El número de documento registrado ya está en uso.')
-    return;
+  try {
+    await authStore.submitPersonalData(values)
+    navigateTo('/onboarding/exito')
+    
+  } catch (error: any) {
+    if (error.data?.name === 'DUPLICATE_DNI') {
+      setFieldError('documentNumber', error.data.message)
+    } else {
+      console.error('Error no controlado:', error)
+    }
   }
-  console.log('Datos listos:', values)
 })
 </script>
 
@@ -90,11 +100,18 @@ const onSubmit = handleSubmit(async (values) => {
 
       <button 
         type="submit"
-        :disabled="!meta.valid"
-        class="w-full font-semibold py-3.5 rounded-lg transition-all mt-4"
-        :class="[!meta.valid ? 'bg-[#c3eadd] text-gray-500 cursor-not-allowed' : 'bg-[#90eed8] hover:bg-kambista-cyan text-kambista-text']"
+        :disabled="!meta.valid || isLoading"
+        class="w-full font-semibold py-3.5 rounded-lg transition-all mt-4 flex justify-center items-center"
+        :class="[!meta.valid || isLoading ? 'bg-[#c3eadd] text-gray-500 cursor-not-allowed' : 'bg-[#90eed8] hover:bg-kambista-cyan text-kambista-text']"
       >
-        CONTINUAR
+        <span v-if="isLoading" class="flex items-center gap-2">
+          <svg class="animate-spin h-5 w-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          Procesando...
+        </span>
+        <span v-else>CONTINUAR</span>
       </button>
 
     </form>
