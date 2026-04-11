@@ -13,7 +13,6 @@ const { errors, defineField, handleSubmit, meta } = useForm({
   }
 })
 
-// Enlazamos campos
 const [email] = defineField('email')
 const [confirmEmail] = defineField('confirmEmail')
 const [password] = defineField('password')
@@ -22,13 +21,11 @@ const [acceptTerms] = defineField('acceptTerms')
 const [acceptPrivacy] = defineField('acceptPrivacy')
 const [acceptPromotions] = defineField('acceptPromotions')
 
-// Control de visibilidad de contraseñas
 const isPasswordVisible = ref(false)
 const isConfirmPasswordVisible = ref(false)
 
 const onSubmit = handleSubmit((values) => {
   console.log('Datos listos para registrar:', values)
-  // Aquí emitiremos al orquestador principal
 })
 </script>
 

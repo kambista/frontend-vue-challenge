@@ -2,10 +2,8 @@
 import InstructionsLogins from '~/features/1_Auth/components/InstructionsLogins.vue'
 import RegisterForm from '~/features/1_Auth/components/RegisterForm.vue'
 
-// Esta función atrapará los datos cuando el usuario de clic en "REGISTRARME"
 const handleRegisterSubmit = (userData: any) => {
   console.log('Datos recibidos en la página de Onboarding:', userData)
-  // Aquí más adelante conectaremos la API para verificar si el correo/DNI ya existe
 }
 </script>
 
