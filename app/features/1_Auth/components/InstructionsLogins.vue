@@ -1,7 +1,9 @@
 <template>
   <div class="z-10 w-full max-w-lg">
-        <div class="mb-16">
-          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 335.9 93.79" xml:space="preserve" class="h-10 md:h-12 w-auto">
+        <div class="mb-20 lg:mb-16 flex justify-center"
+        data-aos="fade-right"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 335.9 93.79" xml:space="preserve" class="h-18 md:h-22 w-auto">
             <g>
               <clipPath id="SVGID_2_main">
                 <path d="M34.97,70.78l18.06,18.06c3.17,3.17,7.46,4.94,11.94,4.94h16.88c-11.64-11.64-23.3-23.3-34.94-34.94
@@ -56,39 +58,48 @@
         </div>
 
         <div class="space-y-10">
-          <div class="flex items-start gap-5">
+          <div class="flex items-start gap-5"
+          data-aos="fade-right"
+          data-aos-delay="100"
+          >
             <img 
               src="https://app.kambista.com/_nuxt/img/cotiza-tu-operacion.53c262c.svg" 
               alt="Icono Cotiza" 
-              class="w-16 h-16 shrink-0 object-contain"
+              class="w-18 h-18 shrink-0 object-contain"
             />
             <div>
               <h3 class="font-bold text-xl mb-1">Cotiza tu operación</h3>
-              <p class="text-sm text-gray-300 leading-relaxed">Utiliza la calculadora para verificar el <span class="text-kambista-cyan font-semibold">Tipo de Cambio</span> en tiempo real</p>
+              <p class="text-sm text-gray-300 leading-relaxed">Utiliza la calculadora para verificar el <span class="text-teal-400 font-semibold">Tipo de Cambio</span> en tiempo real</p>
             </div>
           </div>
 
-          <div class="flex items-start gap-5">
+          <div class="flex items-start gap-5"
+          data-aos="fade-right"
+          data-aos-delay="100"
+          >
             <img 
               src="https://app.kambista.com/_nuxt/img/realiza-la-transferencia.72c4f40.svg" 
               alt="Icono Cotiza" 
-              class="w-16 h-16 shrink-0 object-contain"
+              class="w-18 h-18 shrink-0 object-contain"
             />
             <div>
               <h3 class="font-bold text-xl mb-1">Realiza la transferencia</h3>
-              <p class="text-sm text-gray-300 leading-relaxed">Envía desde tu banco el <span class="text-kambista-cyan font-semibold">dinero</span> que desees cambiar a la <span class="text-kambista-cyan font-semibold">cuenta</span> de Kambista indicada</p>
+              <p class="text-sm text-gray-300 leading-relaxed">Envía desde tu banco el <span class=" font-semibold text-teal-400">dinero</span> que desees cambiar a la <span class="text-teal-400 font-semibold">cuenta</span> de Kambista indicada</p>
             </div>
           </div>
 
-          <div class="flex items-start gap-5">
+          <div class="flex items-start gap-5"
+          data-aos="fade-right"
+          data-aos-delay="100"
+          >
             <img 
               src="https://app.kambista.com/_nuxt/img/obten-tu-dinero.980735d.svg" 
               alt="Icono Cotiza" 
-              class="w-16 h-16 shrink-0 object-contain"
+              class="w-18 h-18 shrink-0 object-contain"
             />
             <div>
               <h3 class="font-bold text-xl mb-1">Obtén tu dinero</h3>
-              <p class="text-sm text-gray-300 leading-relaxed">El dinero será <span class="text-kambista-cyan font-semibold">depositado</span> en tu cuenta de destino</p>
+              <p class="text-sm text-gray-300 leading-relaxed">El dinero será <span class="text-teal-400 font-semibold">depositado</span> en tu cuenta de destino</p>
             </div>
           </div>
         </div>

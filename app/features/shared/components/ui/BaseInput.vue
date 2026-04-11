@@ -34,11 +34,11 @@ const onInput = (event: Event) => {
         :value="modelValue"
         :placeholder="placeholder"
         @input="onInput"
-        class="w-full px-4 py-3 rounded-lg border transition-all outline-none"
+        class="w-full px-4 py-3 bg-white rounded-lg border transition-all outline-none"
         :class="[
           error 
             ? 'border-red-500 focus:border-red-500 ring-1 ring-red-500' 
-            : 'border-gray-200 focus:border-kambista-cyan focus:ring-1 focus:ring-kambista-cyan'
+            : 'border-gray-300'
         ]"
       />
       
