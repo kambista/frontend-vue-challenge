@@ -19,14 +19,15 @@ const isAddAccountOpen = ref(false)
 const isSourceFundsModalOpen = ref(false)
 
 const selectedOriginBank = ref<any>(null)
-const selectedDestinationAccount = ref('')
 const selectedSourceFund = ref('')
+const savedAccounts = ref<any[]>([])
+const selectedDestinationAccount = ref<any>(null)
 
 const handleSelectOriginBank = (bank: any) => {
   selectedOriginBank.value = bank
 }
 
-const handleSelectSourceFund = (fundName: string) => { // <-- NUEVO
+const handleSelectSourceFund = (fundName: string) => {
   selectedSourceFund.value = fundName
 }
 
@@ -36,8 +37,13 @@ const openAddAccountSlideOver = () => {
 }
 
 const handleAddAccount = (newAccount: any) => {
-  console.log('Nueva cuenta agregada:', newAccount)
-  selectedDestinationAccount.value = newAccount.numeroCuenta
+  savedAccounts.value.push(newAccount)
+  selectedDestinationAccount.value = newAccount
+}
+
+const selectExistingAccount = (account: any) => {
+  selectedDestinationAccount.value = account
+  isSelectAccountModalOpen.value = false // Cerramos el modal
 }
 </script>
 
@@ -136,8 +142,8 @@ const handleAddAccount = (newAccount: any) => {
               @click="isSelectAccountModalOpen = true" 
               class="w-full border border-gray-200 rounded-lg p-3 text-sm outline-none bg-white flex justify-between items-center hover:border-kambista-cyan transition-colors"
             >
-              <span :class="selectedDestinationAccount ? 'text-gray-800' : 'text-gray-400'">
-                {{ selectedDestinationAccount || 'Selecciona o Agrega Cuenta' }}
+              <span :class="selectedDestinationAccount ? 'text-gray-800 font-medium' : 'text-gray-400'">
+                {{ selectedDestinationAccount ? selectedDestinationAccount.alias : 'Selecciona o Agrega Cuenta' }}
               </span>
               <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
             </button>
@@ -193,21 +199,40 @@ const handleAddAccount = (newAccount: any) => {
     />
 
     <div v-if="isSelectAccountModalOpen" class="fixed inset-0 bg-black/50 z-40 flex items-center justify-center p-4">
-      <div class="bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all">
-        <div class="bg-[#060f26] p-6 text-white relative">
+      <div class="absolute inset-0" @click="isSelectAccountModalOpen = false"></div>
+
+      <div class="bg-white rounded-xl shadow-2xl w-full max-w-md overflow-hidden transform transition-all z-10 relative flex flex-col max-h-[80vh]">
+        
+        <div class="bg-[#060f26] p-6 text-white shrink-0">
           <button @click="isSelectAccountModalOpen = false" class="absolute top-4 right-4 text-gray-300 hover:text-white">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
           </button>
           <h2 class="text-2xl font-bold">Cuentas <span class="font-normal">{{ receiveCurrency }}</span></h2>
           <p class="text-sm mt-1 text-gray-200">Selecciona tu cuenta de destino</p>
         </div>
-        <div class="p-6 pb-10">
-          <button @click="openAddAccountSlideOver" class="flex items-center gap-4 border border-gray-300 rounded-xl p-4 w-full hover:border-kambista-cyan hover:bg-[#f0fcfb] transition-colors group">
-            <div class="w-10 h-10 rounded-md border-2 border-[#060f26] flex items-center justify-center group-hover:border-kambista-cyan transition-colors">
-              <svg class="w-6 h-6 text-[#060f26] group-hover:text-kambista-cyan transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+
+        <div class="p-6 overflow-y-auto">
+          
+          <div v-if="savedAccounts.length > 0" class="flex flex-col mb-2">
+            <div 
+              v-for="(acc, index) in savedAccounts" 
+              :key="index"
+              @click="selectExistingAccount(acc)"
+              class="border-b border-gray-100 py-4 cursor-pointer hover:bg-gray-50 transition-colors group"
+              :class="selectedDestinationAccount === acc ? 'bg-gray-50/50' : ''"
+            >
+              <p class="text-[#060f26] font-medium text-sm group-hover:text-kambista-cyan transition-colors">{{ acc.alias }}</p>
+              <p class="text-gray-400 text-xs mt-1 tracking-widest font-mono italic">{{ acc.numeroCuenta }}</p>
             </div>
-            <span class="text-[#060f26] font-medium">Agregar cuenta</span>
+          </div>
+
+          <button @click="openAddAccountSlideOver" class="flex items-center gap-4 py-4 w-full group">
+            <div class="w-10 h-10 rounded-md border border-[#060f26] flex items-center justify-center group-hover:border-kambista-cyan group-hover:text-kambista-cyan transition-colors">
+              <svg class="w-5 h-5 text-[#060f26] group-hover:text-kambista-cyan transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" /></svg>
+            </div>
+            <span class="text-[#060f26] font-medium group-hover:text-kambista-cyan transition-colors text-sm">Agregar cuenta</span>
           </button>
+
         </div>
       </div>
     </div>

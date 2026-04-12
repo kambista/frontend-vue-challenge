@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import banksMock from '~/mocks/bankAccounts.json'
 
 const props = defineProps({
@@ -8,7 +8,7 @@ const props = defineProps({
 
 const emit = defineEmits(['close', 'addAccount'])
 
-const form = ref({
+const getInitialForm = () => ({
   tipoCuenta: '',
   bancoId: '',
   numeroCuenta: '',
@@ -16,6 +16,7 @@ const form = ref({
   esPropia: false
 })
 
+const form = ref(getInitialForm())
 const isBankDropdownOpen = ref(false)
 
 const selectedBankObj = computed(() => {
@@ -27,14 +28,24 @@ const selectBank = (id: string) => {
   isBankDropdownOpen.value = false
 }
 
+const resetForm = () => {
+  form.value = getInitialForm()
+  isBankDropdownOpen.value = false
+}
+
+watch(() => props.isOpen, (newVal) => {
+  if (!newVal) {
+    setTimeout(resetForm, 300)
+  }
+})
+
 const submitAccount = () => {
   if (form.value.esPropia && form.value.numeroCuenta) {
-    emit('addAccount', form.value)
+    emit('addAccount', { ...form.value })
     emit('close')
   }
 }
 </script>
-
 <template>
   <div v-if="isOpen" class="fixed inset-0 bg-black/40 z-[60] transition-opacity" @click="emit('close')"></div>
 
