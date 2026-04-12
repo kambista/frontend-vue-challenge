@@ -1,5 +1,12 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
+import { useOperationStore } from '~/store/operation.store'
+
+
+const router = useRouter()
+const operationStore = useOperationStore()
+
 const activeTab = ref<'compra' | 'venta'>('compra')
 const sendAmount = ref<string>('')
 const receiveAmount = ref<string>('')
@@ -110,6 +117,19 @@ const koinksGanados = computed(() => {
   const baseDolares = activeTab.value === 'compra' ? parseFloat(sendAmount.value) : parseFloat(receiveAmount.value)
   return Math.floor(baseDolares || 0).toLocaleString()
 })
+const startOperation = () => {
+  operationStore.setCalculatorData({
+    sendAmount: sendAmount.value,
+    sendCurrency: sendCurrency.value,
+    receiveAmount: receiveAmount.value,
+    receiveCurrency: receiveCurrency.value,
+    rateCompra: rates.value.compra,
+    rateVenta: rates.value.venta
+  })
+
+  router.push('/operacion')
+}
+
 </script>
 
 <template>
@@ -201,7 +221,7 @@ const koinksGanados = computed(() => {
     </div>
   </div>
 
-  <button class="w-full max-w-md bg-[#00e3c2] hover:bg-[#00c9ab] text-[#182233] font-bold py-3 rounded-lg mt-4 mb-10 shadow-sm transition-colors uppercase">
+  <button @click="startOperation" class="w-full max-w-md bg-[#00e3c2] hover:bg-[#00c9ab] text-[#182233] font-bold py-3 rounded-lg mt-4 mb-10 shadow-sm transition-colors uppercase">
     Iniciar Operación
   </button>
 </template>
