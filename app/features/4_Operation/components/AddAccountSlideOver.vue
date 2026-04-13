@@ -17,7 +17,42 @@ const getInitialForm = () => ({
 })
 
 const form = ref(getInitialForm())
+const isAccountTypeDropdownOpen = ref(false)
 const isBankDropdownOpen = ref(false)
+
+const errorNumeroCuenta = ref('')
+const errorAlias = ref('')
+
+watch(() => form.value.numeroCuenta, (newValue) => {
+  if (newValue) {
+    if (/\D/.test(newValue)) {
+      errorNumeroCuenta.value = 'Solo se permiten números.'
+      form.value.numeroCuenta = newValue.replace(/\D/g, '')
+    } else {
+      errorNumeroCuenta.value = ''
+    }
+  } else {
+    errorNumeroCuenta.value = ''
+  }
+})
+
+watch(() => form.value.alias, (newValue) => {
+  if (newValue) {
+    if (/[^a-zA-Z0-9\s]/.test(newValue)) {
+      errorAlias.value = 'No se permiten caracteres especiales.'
+      form.value.alias = newValue.replace(/[^a-zA-Z0-9\s]/g, '')
+    } else {
+      errorAlias.value = ''
+    }
+  } else {
+    errorAlias.value = ''
+  }
+})
+
+const selectAccountType = (tipo: string) => {
+  form.value.tipoCuenta = tipo
+  isAccountTypeDropdownOpen.value = false
+}
 
 const selectedBankObj = computed(() => {
   return banksMock.find(b => b.id === form.value.bancoId)
@@ -30,7 +65,10 @@ const selectBank = (id: string) => {
 
 const resetForm = () => {
   form.value = getInitialForm()
+  errorNumeroCuenta.value = ''
+  errorAlias.value = ''
   isBankDropdownOpen.value = false
+  isAccountTypeDropdownOpen.value = false
 }
 
 watch(() => props.isOpen, (newVal) => {
@@ -39,13 +77,22 @@ watch(() => props.isOpen, (newVal) => {
   }
 })
 
+const isFormValid = computed(() => {
+  return form.value.esPropia && 
+         form.value.numeroCuenta.length > 0 && 
+         form.value.alias.length > 0 &&
+         !errorNumeroCuenta.value && 
+         !errorAlias.value
+})
+
 const submitAccount = () => {
-  if (form.value.esPropia && form.value.numeroCuenta) {
+  if (isFormValid.value) {
     emit('addAccount', { ...form.value })
     emit('close')
   }
 }
 </script>
+
 <template>
   <div v-if="isOpen" class="fixed inset-0 bg-black/40 z-[60] transition-opacity" @click="emit('close')"></div>
 
@@ -68,13 +115,50 @@ const submitAccount = () => {
       <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 pb-8">
         
         <div class="flex flex-col gap-5">
-          <div class="flex flex-col gap-1.5">
+          <div class="flex flex-col gap-1.5 relative">
             <label class="text-xs text-gray-500">Tipo de cuenta</label>
-            <select v-model="form.tipoCuenta" class="w-full border border-gray-200 rounded-md p-2.5 text-sm outline-none focus:border-kambista-cyan bg-white">
-              <option value="" disabled>Selecciona</option>
-              <option value="ahorro">Ahorro</option>
-              <option value="corriente">Corriente</option>
-            </select>
+            
+            <div 
+              @click="isAccountTypeDropdownOpen = !isAccountTypeDropdownOpen"
+              class="w-full border border-gray-200 rounded-md p-2.5 text-sm outline-none bg-white cursor-pointer flex justify-between items-center transition-colors"
+              :class="isAccountTypeDropdownOpen ? 'border-kambista-cyan ring-1 ring-kambista-cyan/20' : 'hover:border-kambista-cyan'"
+            >
+              <span :class="form.tipoCuenta ? 'text-gray-800' : 'text-gray-400'">
+                {{ form.tipoCuenta === 'ahorro' ? 'Ahorro' : (form.tipoCuenta === 'corriente' ? 'Corriente' : 'Selecciona') }}
+              </span>
+              
+              <svg 
+                class="w-4 h-4 text-gray-500 transition-transform duration-200" 
+                :class="isAccountTypeDropdownOpen ? 'rotate-180' : ''"
+                fill="none" stroke="currentColor" viewBox="0 0 24 24"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </div>
+
+            <div 
+              v-if="isAccountTypeDropdownOpen" 
+              class="fixed inset-0 z-40" 
+              @click="isAccountTypeDropdownOpen = false"
+            ></div>
+
+            <div 
+              v-if="isAccountTypeDropdownOpen" 
+              class="absolute top-[100%] left-0 w-full mt-1 bg-white border border-gray-100 rounded-md shadow-lg z-50 overflow-hidden"
+            >
+              <div 
+                @click="selectAccountType('ahorro')"
+                class="p-3 text-sm text-gray-700 hover:bg-gray-50 cursor-pointer transition-colors"
+              >
+                Ahorro
+              </div>
+              <div 
+                @click="selectAccountType('corriente')"
+                class="p-3 text-sm text-gray-700 hover:bg-gray-50 cursor-pointer transition-colors border-t border-gray-50"
+              >
+                Corriente
+              </div>
+            </div>
           </div>
 
           <div class="flex flex-col gap-1.5 relative">
@@ -145,17 +229,34 @@ const submitAccount = () => {
         </div>
 
         <div class="flex flex-col gap-5">
-          <div class="flex flex-col gap-1.5">
+          
+          <div class="flex flex-col gap-1.5 relative">
             <label class="text-xs text-gray-500">Número de cuenta</label>
-            <input v-model="form.numeroCuenta" type="text" placeholder="Escribe tu cuenta destino" class="w-full border border-gray-200 rounded-md p-2.5 text-sm outline-none focus:border-kambista-cyan placeholder:text-gray-300" />
+            <input 
+              v-model="form.numeroCuenta" 
+              type="text" 
+              maxlength="20"
+              placeholder="Escribe tu cuenta destino" 
+              class="w-full border rounded-md p-2.5 text-sm outline-none placeholder:text-gray-300 transition-colors"
+              :class="errorNumeroCuenta ? 'border-red-400 focus:border-red-500' : 'border-gray-200 focus:border-kambista-cyan'"
+            />
+            <span v-if="errorNumeroCuenta" class="text-[10px] text-red-500 absolute -bottom-4">{{ errorNumeroCuenta }}</span>
           </div>
 
-          <div class="flex flex-col gap-1.5">
+          <div class="flex flex-col gap-1.5 relative">
             <label class="text-xs text-gray-500">Ponle nombre a tu cuenta</label>
-            <input v-model="form.alias" type="text" placeholder="Escribe un alias" class="w-full border border-gray-200 rounded-md p-2.5 text-sm outline-none focus:border-kambista-cyan placeholder:text-gray-300" />
+            <input 
+              v-model="form.alias" 
+              type="text" 
+              maxlength="30"
+              placeholder="Escribe un alias" 
+              class="w-full border rounded-md p-2.5 text-sm outline-none placeholder:text-gray-300 transition-colors"
+              :class="errorAlias ? 'border-red-400 focus:border-red-500' : 'border-gray-200 focus:border-kambista-cyan'"
+            />
+            <span v-if="errorAlias" class="text-[10px] text-red-500 absolute -bottom-4">{{ errorAlias }}</span>
           </div>
 
-          <div class="flex items-start gap-3 mt-2">
+          <div class="flex items-start gap-3 mt-4">
             <input v-model="form.esPropia" type="checkbox" id="declaracion" class="mt-1 w-4 h-4 text-kambista-cyan rounded border-gray-300 focus:ring-kambista-cyan" />
             <label for="declaracion" class="text-xs text-gray-600 cursor-pointer">
               <span class="font-bold text-[#060f26]">Declaro que esta cuenta es mía y NO de un tercero</span><br>
@@ -167,7 +268,7 @@ const submitAccount = () => {
             <label class="text-xs text-transparent select-none hidden md:block">Espacio</label> 
             <button 
               @click="submitAccount"
-              :disabled="!form.esPropia || !form.numeroCuenta"
+              :disabled="!isFormValid"
               class="w-full bg-[#00e3c2] hover:bg-[#00c9ab] disabled:opacity-50 disabled:cursor-not-allowed text-[#060f26] font-bold py-3 rounded-md transition-colors text-sm uppercase"
             >
               Agregar y Usar

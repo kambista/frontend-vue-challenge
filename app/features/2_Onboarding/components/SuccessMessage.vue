@@ -1,11 +1,17 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+
 interface Props {
   userName?: string;
 }
 
-withDefaults(defineProps<Props>(), {
-  userName: 'Adrian'
+const props = withDefaults(defineProps<Props>(), {
+  userName: 'Usuario'
 });
+
+const firstName = computed(() => {
+  return props.userName.trim().split(' ')[0]
+})
 </script>
 
 <template>
@@ -21,11 +27,11 @@ withDefaults(defineProps<Props>(), {
       ¡Felicitaciones!
     </h2>
     <p class="text-xl text-gray-600 mb-10">
-      {{ userName }}, tu cuenta ha sido creada
+      {{ firstName }}, tu cuenta ha sido creada
     </p>
 
     <NuxtLink 
-      to="/login"
+      to="/inicio"
       class="block w-full bg-[#00e3c2] hover:bg-[#00c9ab] text-[#182233] font-semibold py-3.5 rounded-lg transition-colors shadow-sm"
     >
       CONTINUAR

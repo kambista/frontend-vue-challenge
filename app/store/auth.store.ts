@@ -7,10 +7,13 @@ export const useAuthStore = defineStore('auth', () => {
   const isLoading = ref<boolean>(false)
 
   const isAuthenticated = computed(() => !!token.value)
+
   const userFirstName = computed(() => {
     if (!user.value?.fullName) return 'Usuario'
     return user.value.fullName.split(' ')[0]
   })
+  
+  const userPersonalData = computed(() => user.value)
   
   const login = async (credentials: any) => {
     isLoading.value = true
@@ -34,7 +37,7 @@ export const useAuthStore = defineStore('auth', () => {
         token.value = 'kambista_simulated_token_xyz'
         
         if (!user.value) {
-          user.value = { fullName: 'Maria Lopez', email: credentials.email }
+          user.value = { fullName: 'Test Kambista', email: credentials.email }
         }
         
         resolve(true)
@@ -75,6 +78,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   return { 
     user, 
+    userPersonalData,
     token, 
     isLoading, 
     isAuthenticated, 

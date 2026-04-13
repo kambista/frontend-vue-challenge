@@ -1,11 +1,16 @@
 <script setup lang="ts">
 import SuccessMessage from '~/features/2_Onboarding/components/SuccessMessage.vue'
 import { useRouter } from 'vue-router'
+import { useAuthStore } from '~/store/auth.store'
+import { storeToRefs } from 'pinia'
 
 const router = useRouter()
+const authStore = useAuthStore()
+const { userPersonalData } = storeToRefs(authStore)
 
 const handleLogout = () => {
   console.log('Cerrando sesión...')
+  authStore.logout()
   router.push('/login')
 }
 </script>
@@ -36,7 +41,7 @@ const handleLogout = () => {
     </header>
 
     <main class="flex-1 flex items-center justify-center p-6 relative z-10">
-      <SuccessMessage userName="Adrian" />
+      <SuccessMessage :userName="userPersonalData?.fullName" />
     </main>
     
   </div>

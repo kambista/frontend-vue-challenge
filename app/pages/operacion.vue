@@ -129,7 +129,7 @@ const handleFinalSubmit = (file: File) => {
 
     <Step4Exito 
       v-if="currentStep === 4" 
-      @goHome="router.push('/')" 
+      @goHome="router.push('/inicio')" 
     />
   </div>
 </template>

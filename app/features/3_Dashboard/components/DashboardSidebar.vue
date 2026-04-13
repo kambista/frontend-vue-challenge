@@ -1,5 +1,5 @@
 <template>
-  <aside class="w-64 bg-white shadow-sm flex flex-col shrink-0 hidden lg:flex relative z-20 overflow-y-auto">
+  <aside class="w-66 bg-white shadow-sm flex flex-col shrink-0 hidden lg:flex relative z-20 overflow-y-auto">
     
     <div class="h-[65px] flex items-center px-6 border-b border-gray-100 shrink-0 sticky top-0 bg-white z-10">
       <img src="https://app.kambista.com/_nuxt/img/logo.b18e48c.png" alt="Kambista" class="object-contain" />

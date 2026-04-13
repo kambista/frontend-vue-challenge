@@ -2,7 +2,6 @@
 import { useOperationStore } from '~/store/operation.store'
 import { storeToRefs } from 'pinia'
 import Step4ExitoIcon from '~/features/shared/icons/Step4ExitoIcon.vue'
-import Step4Banner from '~/features/shared/icons/Step4Banner.vue'
 
 const emit = defineEmits(['goHome'])
 
@@ -46,8 +45,12 @@ const transactionCode = 'km' + Math.random().toString(36).substring(2, 8)
         </div>
       </div>
 
-      <div class="w-full h-[88px] bg-gradient-to-r from-[#ffd3b6] to-[#ffaaa5] rounded-xl mb-6 flex items-center justify-center shadow-sm overflow-hidden relative cursor-pointer hover:opacity-95 transition-opacity">
-        <Step4Banner />
+      <div class="w-full h-[88px] rounded-xl mb-6 flex items-center justify-center overflow-hidden relative cursor-pointer hover:opacity-95 transition-opacity">
+        <img 
+          src="~/assets/banners/bannerExito.png" 
+          alt="Banner de descuentos Kambista"
+          class="w-full h-full object-cover"
+        />
         </div>
 
       <p class="text-[13px] text-gray-600 text-center leading-relaxed px-4 mb-8">
