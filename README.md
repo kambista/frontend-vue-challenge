@@ -1,156 +1,135 @@
-# Kambista Frontend developer!
+# Kambista Frontend Challenge - Solución
 
-👋 Somos [Kambista](https://kambista.com) y estamos en la búsqueda de un nuevo miembro para nuestro equipo de tech que nos ayude a seguir ofreciendo la mejor experiencia de cambio, para esto hemos preparado un reto técnico el cual pueden completar y enviarnos el resultado con las instrucciones de entrega.
+Esta es la solución a la prueba técnica para Frontend Developer de **Kambista**. Se ha desarrollado una aplicación funcional de intercambio de divisas ("compra/venta") y flujo de usuario respetando un diseño premium.
 
-## Caso
+> Puedes leer las instrucciones requeridas originales del desafío en [CHALLENGE.md](./CHALLENGE.md).
 
-Se necesita desarrollar una aplicación de intercambio de divisas, siguiendo el diseño proporcionado en este [Figma](https://www.figma.com/design/CkUU2J5WZNACGQVy3vFr45/Untitled?node-id=0-1&p=f&t=3p9NiX4qWDMnL8g9-0).
+## 🚀 Cómo ejecutar el proyecto localmente
 
-## Tecnologías
-
-Para el desarrollo de la solución se debe utilizar las siguientes tecnologías:
-
-- Nuxt 4 con Typescript.
-- Estilos personalizados con [tailwindcss](https://tailwindcss.com/)
-- Manejo de estado con Pinia
-
-## 📝 Requerimientos funcionales
-
-### I. Módulo de Autenticación
-
-**Login**: Formulario para el inicio de sesión de los usuarios con validación de campos en tiempo real.
-
-### II: Módulo de Onboarding
-
-1: **Datos personales**: Formulario para completar los datos personales del usuario con
-validación de campos en tiempo real.
-
-Manejo de errores específicos (ej: DNI duplicado)
-
-```
-// Ejemplo de error en servicio
-{
-   "success": false,
-   "data": {
-      "name": "DUPLICATE_DNI",
-      "title": "DNI en uso",
-      "message": "El número de documento registrado ya está en uso."
-   }
-}
-```
-
-2: **Registro exitoso**: Vista para indicar que todos los datos se han registrado exitosamente.
-
-### II: Módulo de Transacciones
-
-1: **Pantalla principal**: Es la vista inicial donde se muestra la calculadora de cotización del cambio y se inicia la operación con:
-
-- Consumo de API para obtener datos de tipo de cambio.
-- Consumo de API para calcular una operación.
-- Cálculos en tiempo real.
-
-2: **Agregar información adicional del cambio**:
-
-- En esta vista por una parte se deben seleccionar los bancos que se usarán para el intercambio de divisas y el origen de fondos de acuerdo a mock anexo.
-- Por otra parte se debe agregar la cuenta de destino con:
-  Selector de banco (usar mock proporcionado)
-  Tipo de cuenta (ahorro/crédito)
-  Número de cuenta (validación: solo dígitos)
-  Validación de campos en tiempo real
-
-> \*Ver listado de bancos a agregar en mock anexo.
-
-3: **Datos de transferencia**: Vista con los datos de la cuenta bancaria de Kambista.
-
-4: **Adjuntar voucher de depósito**: Vista de formulario para adjuntar voucher bancario del depósito efectuado.
-
-5: **Transacción creada**: Vista de resumen de la operación creada.
-
-## Información adicional
-
--**APIs a utilizar**
-
-1. Endpoint para obtener el tipo de cambio:
-
-```
-https://api.kambista.com/v1/exchange/kambista/current
-```
-
-2. Endpoint para la calculadora:
-
-```
-https://api.kambista.com/v1/exchange/calculates?originCurrency=PEN&destinationCurrency=USD&amount={cantidad}&active=S
-```
-
--**Mocks de data adicional**
-Se incluyen dos archivos JSON con datos de prueba:
-
-1. **`bankAccounts.json`**
-   - Listado completo de bancos
-   - Uso:
-     - Selector de banco al agregar cuenta
-     - Elección de entidad financiera en operaciones
-
-2. **`sourceFunds.json`**
-   - Listado de orígenes de fondos
-   - Uso:
-     - Selector al crear operaciones
-
-> \*Los archivos se encuentran en `/mocks`.
-
--**Estrategias a implementar para manejo de errores**
-
-1. **Errores generales de los Formularios**:
-   - Validación en tiempo real para:
-     - Formato de email correcto.
-     - Nombre sin caracteres especiales ni números.
-     - Formato de documento de identificación acorde a DNI (8 dígitos), CE (9 dígitos), PASAPORTE (de 8 a 15 caracteres)
-     - Teléfono (9 dígitos)
-     - Fecha de nacimiento (Solo registro valido para mayores de edad)
-     - Número de cuenta bancaria solo dígitos.
-2. **Errores de API**:
-
-- Considerar errores en servicios como:
-  - Número de documento o celular en uso
-  - Error general en la respuesta del servicio.
-
-```typescript
-interface APIError {
-  success: false
-  data: {
-    name: 'DUPLICATE_DNI' | 'INVALID_PHONE' | 'SERVER_ERROR' // Ejemplos
-    title: string
-    message: string
-  }
-}
-```
-
-## 📍 Instruciones de entrega
-
-- Se necesita crear un fork del proyecto y crear un pull request con la solución.
-- Crea un nuevo branch con tu nombre:
-  `git checkout -b {nombre-apellido}.`
-- Documenta en README.md instrucciones de ejecución
-- Notifícanos al momento de completar la prueba.
-- En la siguiente etapa se realizará una entrevista técnica para revisar la solución.
-- El tiempo estimado para completar la prueba es de 7 días desde el inicio de la misma.
-
-## 🏆 Criterios de Evaluación
-
-- **Calidad de código**: Arquitectura limpia, modularización y buenas prácticas.
-- **Fidelidad al diseño**: Fidelidad y creatividad en la resolución de los requerimientos de diseño
-- **Performance**: Componentes optimizados y manejo eficiente de estado.
-- **Mantenibilidad**: Prioriza legibilidad y escalabilidad, con estructura de archivos clara y consistente.
-
-**Bonus (Opcional)**
-
-- Animaciones
-- Agregar en la documentación (README.md) las decisiones técnicas relevantes
+1. **Instalar dependencias**
+   ```bash
+   npm install
+   ```
+2. **Levantar servidor de desarrollo**
+   *(Ejecuta el proyecto utilizando Nuxt 4)*
+   ```bash
+   npm run dev
+   ```
+3. Navega a `http://localhost:3000` en tu navegador web favorito para acceder a la aplicación interactiva.
 
 ---
 
-Para cualquier duda o consulta, por favor contactar a talentohumano@kambista.com
+## � Demostración
+
+Revisa cómo funciona la aplicación en ambos formatos:
+
+### 🖥️ Versión Desktop
+[![Ver demo desktop](https://img.youtube.com/vi/_KZIFVvLEWs/0.jpg)](https://www.youtube.com/watch?v=_KZIFVvLEWs)
+
+### 📱 Versión Mobile
+[![Ver demo mobile](https://img.youtube.com/vi/A4LvRwn5blg/0.jpg)](https://www.youtube.com/watch?v=A4LvRwn5blg)
 
 ---
 
-Quedamos atentos a cualquier consulta adicional, muchos éxitos! 🚀
+## �🛠 Decisiones Técnicas y Arquitectura
+
+A continuación, se detallan las decisiones técnicas relevantes tomadas para el desarrollo de esta solución:
+
+### 1. Framework y Base (Nuxt 4 + Vue 3 + TypeScript)
+- Se utilizó **Nuxt 4** junto con la **Composition API (script setup)** de Vue 3, aprovechando la reactividad moderna y el auto-import de componentes/composables para un código más limpio.
+- **TypeScript** fue implementado de manera estricta para asegurar un tipado fuerte (interfaces de `APIError`, `OperationData`, `KambistaBankAccount`), previniendo errores en tiempo de desarrollo y mejorando la calidad del código.
+
+### 2. Manejo de Estado Global (Pinia)
+- Se creó un store dedicado (`operation.ts`) utilizando Pinia para gestionar el complejo flujo multicapa de transacciones ("Completa" -> "Transfiere" -> "Constancia").
+- Esta abstracción permite mantener la persistencia temporal de la información de la operación (bancos origen/destino, fondos, tasas actuales) entre cambios de rutas y componentes sin forzar el acoplamiento directo entre vistas.
+- Se ha incluido lógica computada dentro del store (ej. cálculo en tiempo real de "Koinks") para asegurar que el estado derivado sea consistente en toda la aplicación.
+
+### 3. Estilos y Diseño Sensible (Tailwind CSS)
+- La aplicación fue construida adoptando un enfoque **Mobile-First** con **Tailwind CSS**.
+- En lugar de ensuciar las clases repetitivas, se empleó un sistema de componentes atómicos (`KButton`, `KInput`, `KSelect`, etc.) estilizados con Tailwind para mantener fidelidad con el diseño de Figma y asegurar su reutilización.
+- Se agregaron clases transitivas y paletas de colores exclusivas (ej. `kambista-teal`, `kambista-navy`) configuradas directo en `tailwind.config.js`.
+
+### 4. Integración y Resiliencia con APIs (Kambista)
+- Se implementó un flujo resiliente para el consumo de las APIs del tipo de cambio. Empleando `$fetch` de Nuxt, se incluyeron adaptaciones dinámicas para lidiar con posibles mutaciones de campos de respuesta (ej. soporte a keys como `bid`/`ask` o `compra`/`venta`).
+- Se introdujo un "fallback" local (tasas y cálculos en `computed`) en caso de que la respuesta oficial de la API tarde, minimizando el impacto negativo de latencia para el usuario y asegurando que la UI sea reactiva en "tiempo real".
+
+### 5. Validación de Formularios Custom
+- Se optó por construir un **mecanismo de validación reactivo hecho a medida** usando propiedades `computed` y modifers nativos en lugar de librerías de terceros engorrosas y pesadas (como VeeValidate).
+- Se implementaron expresiones regulares personalizadas y reglas específicas para casos como el login, el registro y el "drawer" de añadir cuenta, garantizando feedback visual y estados de error interactivos tal cual estipulan los requisitos funcionales.
+
+### 6. Animaciones y Experiencia de Usuario (UX)
+- Se incluyeron micro-animaciones (ej. íconos de carga fluida, transiciones CSS en dropdowns/drawers fluidas).
+- Se añadió la biblioteca `canvas-confetti` como celebración visual al finalizar la constancia de operación exitosamente para dar un toque premium final a nivel de UX.
+
+### 7. Flujo de Onboarding (Login + Register)
+- El proceso de incorporación está dividido en **dos etapas separadas**: `/register` (crear cuenta) → `/onboarding` (completar datos) → `/bienvenido` (bienvenida).
+- Tanto el registro como el inicio de sesión redirigen a `/onboarding` si el usuario no ha completado sus datos (`hasCompletedOnboarding = false` en el store).
+- Al finalizar el onboarding y pulsar "Continuar" en `/bienvenido`, se activa `completeOnboarding()` en Pinia, marcando el flag como `true` para evitar que el usuario vuelva a ver el flujo en sesiones posteriores.
+
+---
+
+## 📁 Estructura de Carpetas
+
+```
+frontend-vue-challenge/
+├── app/                          # Directorio raíz de la app (convención Nuxt 4)
+│   ├── app.vue                   # Punto de entrada principal
+│   ├── assets/
+│   │   └── css/
+│   │       └── main.css          # Directivas Tailwind y estilos globales
+│   ├── components/
+│   │   ├── K*.vue                # Componentes atómicos de UI (KButton, KInput, etc.)
+│   │   ├── base/                 # Componentes base reutilizables (Banner, Card, etc.)
+│   │   ├── layout/               # Componentes estructurales (AppHeader, AppStepper)
+│   │   ├── operation/            # Componentes del resumen de operación
+│   │   └── transfer/             # Componentes del flujo de transferencia (Steps, Modal, Drawer)
+│   ├── composables/
+│   │   ├── useClipboard.ts       # Copia al portapapeles
+│   │   ├── useCountdown.ts       # Cuenta regresiva para el tiempo de tasa
+│   │   ├── useMocks.ts           # Datos simulados (bancos, fondos)
+│   │   └── useOperationFlow.ts   # Lógica de navegación entre pasos
+│   ├── layouts/
+│   │   ├── auth.vue              # Layout para páginas de autenticación
+│   │   ├── default.vue           # Layout principal con header
+│   │   └── operation.vue         # Layout del flujo de operación con stepper
+│   ├── middleware/
+│   │   └── operation-guard.ts    # Protege rutas de operación según el paso actual
+│   ├── pages/
+│   │   ├── index.vue             # Ruta raíz (redirige al dashboard o login)
+│   │   ├── login.vue             # Inicio de sesión
+│   │   ├── register.vue          # Registro: crea cuenta (email, usuario, contraseña)
+│   │   ├── onboarding.vue        # Completa datos personales (doc, teléfono, nacimiento)
+│   │   ├── bienvenido.vue        # Pantalla de bienvenida post-onboarding
+│   │   ├── dashboard.vue         # Panel principal con calculadora de cambio
+│   │   └── operacion/
+│   │       ├── completa.vue      # Paso 1: Completa los datos de la operación
+│   │       ├── transfiere.vue    # Paso 2: Instrucciones de transferencia bancaria
+│   │       └── constancia.vue    # Paso 3: Constancia y confirmación final
+│   ├── stores/
+│   │   └── operation.ts          # Store Pinia: estado global de operación y onboarding
+│   ├── types/
+│   │   └── operation.ts          # Interfaces TypeScript (OperationData, APIError, etc.)
+│   └── utils/
+│       └── formatters.ts         # Helpers de formato (moneda, fechas, etc.)
+├── mocks/
+│   ├── bankAccounts.json         # Datos simulados de cuentas bancarias del usuario
+│   └── sourceFunds.json          # Opciones de origen de fondos
+├── public/
+│   └── images/                   # Recursos estáticos (ilustraciones, íconos)
+├── nuxt.config.ts                # Configuración de Nuxt (módulos, runtime config)
+├── tailwind.config.js            # Tema extendido (colores kambista-teal, kambista-navy)
+└── tsconfig.json                 # Configuración TypeScript estricta
+```
+
+### Por qué esta estructura
+
+La organización sigue la **convención de directorios de Nuxt 4** (`app/`) para beneficiarse del auto-import de componentes, composables y stores sin necesidad de importaciones explícitas, reduciendo el boilerplate.
+
+Dentro de `components/` se adoptó una **clasificación por dominio** en lugar de un único directorio plano:
+- `K*.vue` — átomos de UI agnósticos al dominio, reutilizables en cualquier parte.
+- `base/` — componentes ligeramente más compuestos (Card, Banner) que aún no pertenecen a un dominio específico.
+- `operation/` y `transfer/` — componentes acoplados al dominio de negocio, agrupados para facilitar su localización y mantenimiento.
+
+Los **composables** encapsulan lógica de comportamiento (temporizadores, portapapeles, flujo de pasos) desacoplada de la UI, facilitando las pruebas unitarias y la reutilización entre vistas.
+
+El **store único de Pinia** (`operation.ts`) centraliza tanto el estado transaccional como el flag de onboarding, evitando la proliferación de stores innecesarios para una aplicación de esta escala.
