@@ -183,6 +183,9 @@ export const useOperationStore = defineStore('operation', () => {
     const namePart = email.split('@')[0] || 'Usuario'
     userName.value = namePart
     
+    // Resetear onboarding flag para nuevas sesiones de login
+    hasCompletedOnboarding.value = false
+    
     // Guardar en localStorage
     try {
       localStorage.setItem('kambista_user_email', email)
