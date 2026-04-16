@@ -19,7 +19,19 @@ Esta es la solución a la prueba técnica para Frontend Developer de **Kambista*
 
 ---
 
-## 🛠 Decisiones Técnicas y Arquitectura
+## � Demostración
+
+Revisa cómo funciona la aplicación en ambos formatos:
+
+### 🖥️ Versión Desktop
+[![Ver demo desktop](https://img.youtube.com/vi/_KZIFVvLEWs/0.jpg)](https://www.youtube.com/watch?v=_KZIFVvLEWs)
+
+### 📱 Versión Mobile
+[![Ver demo mobile](https://img.youtube.com/vi/A4LvRwn5blg/0.jpg)](https://www.youtube.com/watch?v=A4LvRwn5blg)
+
+---
+
+## �🛠 Decisiones Técnicas y Arquitectura
 
 A continuación, se detallan las decisiones técnicas relevantes tomadas para el desarrollo de esta solución:
 
