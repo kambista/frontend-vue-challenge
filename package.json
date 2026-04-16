@@ -1,0 +1,30 @@
+{
+  "name": "kambista-vue",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@pinia/nuxt": "^0.11.3",
+    "@popperjs/core": "^2.11.8",
+    "@tailwindcss/vite": "^4.2.2",
+    "@vee-validate/zod": "^4.15.1",
+    "aos": "^2.3.4",
+    "nuxt": "^4.4.2",
+    "pinia": "^3.0.4",
+    "tailwindcss": "^4.2.2",
+    "v-calendar": "^3.1.2",
+    "vee-validate": "^4.15.1",
+    "vue": "^3.5.32",
+    "vue-router": "^5.0.4",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/aos": "^3.0.7"
+  }
+}

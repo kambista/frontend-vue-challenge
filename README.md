@@ -1,156 +1,77 @@
-# Kambista Frontend developer!
+# KAMBISTA FRONTEND CHALLENGE NUXT - SOLUCION
 
-👋 Somos [Kambista](https://kambista.com) y estamos en la búsqueda de un nuevo miembro para nuestro equipo de tech que nos ayude a seguir ofreciendo la mejor experiencia de cambio, para esto hemos preparado un reto técnico el cual pueden completar y enviarnos el resultado con las instrucciones de entrega.
+Esta es la solucion desarrollada para el reto tecnico de Frontend Developer en Kambista. Se ha construido una aplicacion funcional de intercambio de divisas siguiendo los requerimientos de diseño, performance y arquitectura limpia.
 
-## Caso
 
-Se necesita desarrollar una aplicación de intercambio de divisas, siguiendo el diseño proporcionado en este [Figma](https://www.figma.com/design/CkUU2J5WZNACGQVy3vFr45/Untitled?node-id=0-1&p=f&t=3p9NiX4qWDMnL8g9-0).
+## INSTRUCCIONES DE EJECUCION
 
-## Tecnologías
+Sigue estos pasos para levantar el proyecto en tu entorno local:
 
-Para el desarrollo de la solución se debe utilizar las siguientes tecnologías:
-
-- Nuxt 4 con Typescript.
-- Estilos personalizados con [tailwindcss](https://tailwindcss.com/)
-- Manejo de estado con Pinia
-
-## 📝 Requerimientos funcionales
-
-### I. Módulo de Autenticación
-
-**Login**: Formulario para el inicio de sesión de los usuarios con validación de campos en tiempo real.
-
-### II: Módulo de Onboarding
-
-1: **Datos personales**: Formulario para completar los datos personales del usuario con
-validación de campos en tiempo real.
-
-Manejo de errores específicos (ej: DNI duplicado)
-
-```
-// Ejemplo de error en servicio
-{
-   "success": false,
-   "data": {
-      "name": "DUPLICATE_DNI",
-      "title": "DNI en uso",
-      "message": "El número de documento registrado ya está en uso."
-   }
-}
+```bash
+git clone https://github.com/Adrianzzziny/frontend-vue-challenge.git
+cd frontend-vue-challenge
 ```
 
-2: **Registro exitoso**: Vista para indicar que todos los datos se han registrado exitosamente.
+Instalar dependencias:
 
-### II: Módulo de Transacciones
-
-1: **Pantalla principal**: Es la vista inicial donde se muestra la calculadora de cotización del cambio y se inicia la operación con:
-
-- Consumo de API para obtener datos de tipo de cambio.
-- Consumo de API para calcular una operación.
-- Cálculos en tiempo real.
-
-2: **Agregar información adicional del cambio**:
-
-- En esta vista por una parte se deben seleccionar los bancos que se usarán para el intercambio de divisas y el origen de fondos de acuerdo a mock anexo.
-- Por otra parte se debe agregar la cuenta de destino con:
-  Selector de banco (usar mock proporcionado)
-  Tipo de cuenta (ahorro/crédito)
-  Número de cuenta (validación: solo dígitos)
-  Validación de campos en tiempo real
-
-> \*Ver listado de bancos a agregar en mock anexo.
-
-3: **Datos de transferencia**: Vista con los datos de la cuenta bancaria de Kambista.
-
-4: **Adjuntar voucher de depósito**: Vista de formulario para adjuntar voucher bancario del depósito efectuado.
-
-5: **Transacción creada**: Vista de resumen de la operación creada.
-
-## Información adicional
-
--**APIs a utilizar**
-
-1. Endpoint para obtener el tipo de cambio:
-
+```bash
+npm install
 ```
-https://api.kambista.com/v1/exchange/kambista/current
+Levantar el proyecto en desarrollo:
+```bash
+npm run dev
+La aplicacion estara disponible en http://localhost:3000
 ```
 
-2. Endpoint para la calculadora:
+## 📱CREDENCIALES Y DATOS DE PRUEBA
 
-```
-https://api.kambista.com/v1/exchange/calculates?originCurrency=PEN&destinationCurrency=USD&amount={cantidad}&active=S
-```
+Para facilitar la revision tecnica, utiliza los siguientes datos:
 
--**Mocks de data adicional**
-Se incluyen dos archivos JSON con datos de prueba:
-
-1. **`bankAccounts.json`**
-   - Listado completo de bancos
-   - Uso:
-     - Selector de banco al agregar cuenta
-     - Elección de entidad financiera en operaciones
-
-2. **`sourceFunds.json`**
-   - Listado de orígenes de fondos
-   - Uso:
-     - Selector al crear operaciones
-
-> \*Los archivos se encuentran en `/mocks`.
-
--**Estrategias a implementar para manejo de errores**
-
-1. **Errores generales de los Formularios**:
-   - Validación en tiempo real para:
-     - Formato de email correcto.
-     - Nombre sin caracteres especiales ni números.
-     - Formato de documento de identificación acorde a DNI (8 dígitos), CE (9 dígitos), PASAPORTE (de 8 a 15 caracteres)
-     - Teléfono (9 dígitos)
-     - Fecha de nacimiento (Solo registro valido para mayores de edad)
-     - Número de cuenta bancaria solo dígitos.
-2. **Errores de API**:
-
-- Considerar errores en servicios como:
-  - Número de documento o celular en uso
-  - Error general en la respuesta del servicio.
-
-```typescript
-interface APIError {
-  success: false
-  data: {
-    name: 'DUPLICATE_DNI' | 'INVALID_PHONE' | 'SERVER_ERROR' // Ejemplos
-    title: string
-    message: string
-  }
-}
+MODULO DE AUTENTICACION (LOGIN)
+```bash
+Usuario: test@kambista.com
+Contraseña: 123456
 ```
 
-## 📍 Instruciones de entrega
+MODULO DE ONBOARDING (VALIDACION DE ERRORES)
+Para probar el flujo de DNI Duplicado (Manejo de errores de API):
+```bash
+DNI a ingresar: 12345678
+Cualquier otro DNI valido permitira continuar con el flujo normal.
+```
 
-- Se necesita crear un fork del proyecto y crear un pull request con la solución.
-- Crea un nuevo branch con tu nombre:
-  `git checkout -b {nombre-apellido}.`
-- Documenta en README.md instrucciones de ejecución
-- Notifícanos al momento de completar la prueba.
-- En la siguiente etapa se realizará una entrevista técnica para revisar la solución.
-- El tiempo estimado para completar la prueba es de 7 días desde el inicio de la misma.
+## 📝 STACK TECNOLOGICO UTILIZADO
 
-## 🏆 Criterios de Evaluación
+```bash
+Nuxt 4: Utilizando la nueva estructura de directorios y capacidades mejoradas.
 
-- **Calidad de código**: Arquitectura limpia, modularización y buenas prácticas.
-- **Fidelidad al diseño**: Fidelidad y creatividad en la resolución de los requerimientos de diseño
-- **Performance**: Componentes optimizados y manejo eficiente de estado.
-- **Mantenibilidad**: Prioriza legibilidad y escalabilidad, con estructura de archivos clara y consistente.
+TypeScript: Tipado estricto para asegurar la robustez del codigo.
 
-**Bonus (Opcional)**
+Tailwind CSS v4: Para estilos personalizados, aprovechando el nuevo motor de alto rendimiento configurado via CSS variables.
 
-- Animaciones
-- Agregar en la documentación (README.md) las decisiones técnicas relevantes
+Pinia: Gestion de estado global para la autenticacion y los datos de la operacion.
 
----
+Vee-Validate y Zod: Manejo de formularios y validaciones complejas con esquemas tipados.
 
-Para cualquier duda o consulta, por favor contactar a talentohumano@kambista.com
+Google Fonts: Integracion de la tipografia Montserrat para fidelidad con el diseño.
+```
 
----
+## 🛠️ DECISIONES TECNICAS RELEVANTES
 
-Quedamos atentos a cualquier consulta adicional, muchos éxitos! 🚀
+Screaming Architecture: Se organizo el codigo por Features (Auth, Onboarding, Dashboard) para facilitar la escalabilidad.
+
+Componentes Reutilizables: La calculadora de divisas es un componente agnostico; se usa tanto en la Landing Page publica (Index) como en el flujo interno.
+
+Validacion de Sesion: Implementacion de Middleware para proteger rutas privadas y persistencia de datos de la calculadora en el Operation Store.
+
+UX en Formularios: Validaciones en tiempo real para DNI, CE, Pasaporte y Celular (formato peruano), incluyendo logica de mayoria de edad (+18 años) en el selector de fecha.
+
+Manejo de Errores: Sistema de captura de errores de API para mostrar mensajes especificos (documento en uso).
+
+Fidelidad Visual: Implementacion de menus desplegables (dropdowns) personalizados para bancos y tipos de cuenta.
+
+## 📤 INSTRUCCIONES DE ENTREGA
+```bash
+El proyecto se entrega mediante un Pull Request al repositorio original.
+Branch utilizado: {adrian-escobar}.
+```
