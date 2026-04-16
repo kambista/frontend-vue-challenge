@@ -2,10 +2,11 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useOperationStore } from '~/store/operation.store'
-
+import { useAuthStore } from '~/store/auth.store'
 
 const router = useRouter()
 const operationStore = useOperationStore()
+const authStore = useAuthStore()
 
 const activeTab = ref<'compra' | 'venta'>('compra')
 const sendAmount = ref<string>('')
@@ -127,7 +128,11 @@ const startOperation = () => {
     rateVenta: rates.value.venta
   })
 
-  router.push('/operacion')
+  if (authStore.isAuthenticated) {
+    router.push('/operacion')
+  } else {
+    router.push('/login')
+  }
 }
 
 </script>
